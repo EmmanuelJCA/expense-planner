@@ -1,13 +1,16 @@
 import { useState } from "react";
 import NewBudget from "./NewBudget";
 
-const Header = () => {
+const Header = ({budget, setBudget}) => {
 
     return (
         <header>
             <h1>Planificador de gastos</h1>
 
-            <NewBudget />
+            <NewBudget 
+                budget={budget}
+                setBudget={setBudget}
+            />
         </header>
     )
 }
