@@ -275,19 +275,19 @@ main {
     width: 100%;
 }
 
-.amount-expense {
+.expense-quantity {
     font-size: 2.4rem;
     color: var(--black);
     font-weight: 900;
 }
 
-.content-expense {
+.expense-content {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
-.content-expense img {
+.expense-content img {
     width: 10rem;
 }
 
