@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 // Components
 import Header from './components/Header'
+import Filters from './components/Filters'
 import ExpensesList from './components/ExpensesList'
 import Modal from './components/Modal'
 // Scripts
@@ -23,6 +24,9 @@ function App() {
 
   const [expenseEdit, setExpenseEdit] = useState({})
 
+  const [filter, setFilter] = useState('')
+  const [filteredExpenses, setFilteredExpenses] = useState([])
+
   useEffect(() => {
     if(Object.keys(expenseEdit).length > 0) {
       setModal(true)
@@ -36,6 +40,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem('budget', budget ?? 0)
   },[budget])
+
+  useEffect(() => {
+    if(filter) {
+      const filteredExpenses = expenses.filter( expense => expense.category === filter )
+
+      setFilteredExpenses(filteredExpenses)
+    }
+  },[filter])
 
   useEffect(() => {
     const budgetLS = Number(localStorage.getItem('budget')) ?? 0
@@ -96,10 +108,17 @@ function App() {
       {isValidBudget && (
         <>
           <main>
+            <Filters 
+              filter={filter}
+              setFilter={setFilter}
+            />
+
             <ExpensesList 
               expenses={expenses}
               setExpenseEdit={setExpenseEdit}
               deleteExpense={deleteExpense}
+              filter={filter}
+              filteredExpenses={filteredExpenses}
             />
           </main>
           <div className='new-expense'>
