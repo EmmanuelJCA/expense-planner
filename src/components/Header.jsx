@@ -4,6 +4,7 @@ import BudegetControl from "./BudegetControl";
 
 const Header = ({
     expenses,
+    setExpenses,
     budget, 
     setBudget, 
     isValidBudget, 
@@ -17,7 +18,10 @@ const Header = ({
             {isValidBudget ? (
                 <BudegetControl
                     expenses={expenses} 
+                    setExpenses={setExpenses}
                     budget={budget}
+                    setBudget={setBudget}
+                    setIsValidBudget={setIsValidBudget}
                 />
             ) : (
                 <NewBudget 

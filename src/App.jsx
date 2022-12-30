@@ -55,7 +55,7 @@ function App() {
     if(budgetLS > 0 ) {
       setIsValidBudget(true)
     }
-  })
+  },[])
 
   useEffect(() => {
     localStorage.setItem('expenses', JSON.stringify(expenses) ?? [])
@@ -99,6 +99,7 @@ function App() {
     <div className={modal ? 'fix' : ''}>
       <Header 
         expenses={expenses}
+        setExpenses={setExpenses}
         budget={budget}
         setBudget={setBudget}
         isValidBudget={isValidBudget}
