@@ -1,16 +1,36 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Message from "./Message"
 import closeModalBtn from '../assets/close.svg'
 
-const Modal = ({setModal, animateModal, setAnimateModal, saveSpending}) => {
+const Modal = ({
+    setModal, 
+    animateModal, 
+    setAnimateModal, 
+    saveSpending,
+    expenseEdit,
+    setExpenseEdit
+}) => {
 
     const [message, setMessage] = useState('')
     const [name, setName] = useState('')
     const [quantity, setQuantity] = useState(0)
     const [category, setCategory] = useState('')
+    const [date, setDate] = useState('')
+    const [id, setId] = useState('')
+
+    useEffect(() => {
+        if(Object.keys(expenseEdit).length > 0) {
+            setName(expenseEdit.name)
+            setQuantity(expenseEdit.quantity)
+            setCategory(expenseEdit.category)
+            setId(expenseEdit.id)
+            setDate(expenseEdit.date)
+          }
+    },[])
 
     const hideModal = () => {
         setAnimateModal(false)
+        setExpenseEdit({})
 
         setTimeout(() => {
             setModal(false)
@@ -29,8 +49,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, saveSpending}) => {
             return
         } 
 
-        saveSpending({name, quantity, category})
-        console.log("Enviando Form")
+        saveSpending({name, quantity, category, id, date})
     }
 
     return (
@@ -48,7 +67,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, saveSpending}) => {
             className={`form ${animateModal ? "animate" : "close"}`}
             >
 
-                <legend>Nuevo Gasto</legend>
+                <legend>{expenseEdit.name ? 'Editar Gasto' : 'Nuevo Gasto'}</legend>
 
                 {message && <Message type="error">{message}</Message>}
 
@@ -94,7 +113,7 @@ const Modal = ({setModal, animateModal, setAnimateModal, saveSpending}) => {
 
                 <input 
                     type="submit" 
-                    value="Anadir Gasto"
+                    value={expenseEdit.name ? 'Guardar Cambios' : 'Anadir Gasto'}
                 />
             </form>
         </div>
