@@ -1,4 +1,3 @@
-import { useState } from "react"
 import Expense from "./Expense"
 
 const ExpensesList = ({

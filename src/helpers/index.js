@@ -16,3 +16,10 @@ export const formatDate = date => {
 
     return newDate.toLocaleDateString('es-ES', formatConfig)
 }
+
+export const formatQuantity = (quantity) => {
+    return quantity.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    })
+}

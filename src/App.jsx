@@ -12,11 +12,10 @@ import newExpenseIcon from './assets/new_expense.svg'
 
 function App() {
 
-  const [expenses, setExpenses] = useState(
-    localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
-    )
+  /** ESTADOS */
+  const [expenses, setExpenses] = useState(localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : [])
 
-  const [budget, setBudget] = useState( Number(localStorage.getItem('budget') ?? 0) )
+  const [budget, setBudget] = useState(Number(localStorage.getItem('budget') ?? 0))
   const [isValidBudget, setIsValidBudget] = useState(false)
   const [editBudget, setEditBudget] = useState(false)
 
@@ -28,8 +27,9 @@ function App() {
   const [filter, setFilter] = useState('')
   const [filteredExpenses, setFilteredExpenses] = useState([])
 
+  // Mostrar modal para editar un gasto
   useEffect(() => {
-    if(Object.keys(expenseEdit).length > 0) {
+    if (Object.keys(expenseEdit).length > 0) {
       setModal(true)
 
       setTimeout(() => {
@@ -38,29 +38,26 @@ function App() {
     }
   }, [expenseEdit])
 
-  useEffect(() => {
-    localStorage.setItem('budget', budget ?? 0)
-  },[budget])
+  // Guardar presupuesto y gastos en localstorage
+  useEffect(() => localStorage.setItem('budget', budget ?? 0), [budget])
+  useEffect(() => localStorage.setItem('expenses', JSON.stringify(expenses) ?? []), [expenses])
 
+  // Mostrar listado filtrado
   useEffect(() => {
-    if(filter) {
-      const filteredExpenses = expenses.filter( expense => expense.category === filter )
-
+    if (filter) {
+      const filteredExpenses = expenses.filter(expense => expense.category === filter)
       setFilteredExpenses(filteredExpenses)
     }
-  },[filter])
+  }, [filter])
 
+  // Obtener presupuesto y validarlo
   useEffect(() => {
     const budgetLS = Number(localStorage.getItem('budget')) ?? 0
 
-    if(budgetLS > 0 ) {
+    if (budgetLS > 0) {
       setIsValidBudget(true)
     }
-  },[])
-
-  useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses) ?? [])
-  },[expenses])
+  }, [])
 
   const handleNewExpense = () => {
     setModal(true)
@@ -73,8 +70,8 @@ function App() {
 
   const saveSpending = expense => {
 
-    if(expense.id) {
-      const updatedExpenses = expenses.map( expenseState => expenseState.id === expense.id ? expense : expenseState)
+    if (expense.id) {
+      const updatedExpenses = expenses.map(expenseState => expenseState.id === expense.id ? expense : expenseState)
 
       setExpenses(updatedExpenses)
       setExpenseEdit({})
@@ -86,19 +83,19 @@ function App() {
 
     setAnimateModal(false)
     setTimeout(() => {
-        setModal(false)
-      }, 300)
+      setModal(false)
+    }, 300)
   }
 
   const deleteExpense = id => {
-    const updatedExpenses = expenses.filter( expense => expense.id !== id )
+    const updatedExpenses = expenses.filter(expense => expense.id !== id)
 
     setExpenses(updatedExpenses)
   }
 
   return (
     <div className={modal ? 'fix' : ''}>
-      <Header 
+      <Header
         expenses={expenses}
         setExpenses={setExpenses}
         budget={budget}
@@ -112,12 +109,12 @@ function App() {
       {isValidBudget && (
         <>
           <main>
-            <Filters 
+            <Filters
               filter={filter}
               setFilter={setFilter}
             />
 
-            <ExpensesList 
+            <ExpensesList
               expenses={expenses}
               setExpenseEdit={setExpenseEdit}
               deleteExpense={deleteExpense}
@@ -126,23 +123,23 @@ function App() {
             />
           </main>
           <div className='new-expense'>
-            <img 
-              src={newExpenseIcon} 
+            <img
+              src={newExpenseIcon}
               alt="Icono nuevo gasto"
-              onClick={handleNewExpense} 
+              onClick={handleNewExpense}
             />
           </div>
         </>
       )}
 
-      {modal && <Modal 
-                  setModal={setModal}
-                  animateModal={animateModal}
-                  setAnimateModal={setAnimateModal}
-                  saveSpending={saveSpending}
-                  expenseEdit={expenseEdit}
-                  setExpenseEdit={setExpenseEdit}
-                />}
+      {modal && <Modal
+        setModal={setModal}
+        animateModal={animateModal}
+        setAnimateModal={setAnimateModal}
+        saveSpending={saveSpending}
+        expenseEdit={expenseEdit}
+        setExpenseEdit={setExpenseEdit}
+      />}
 
     </div>
   )

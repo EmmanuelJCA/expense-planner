@@ -1,5 +1,3 @@
-
-
 const Filters = ({filter, setFilter}) => {
     return (
         <div className="filters shadow container">

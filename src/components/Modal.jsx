@@ -40,13 +40,6 @@ const Modal = ({
         e.preventDefault()
 
         if([ name, quantity, category ].includes('')) {
-            // setMessage('Todos los campos son obligatorios')
-
-            // setTimeout(() => {
-            //     setMessage('')
-            // }, 2000)
-            // return
-
             return Swal.fire({
                 icon: 'error',
                 title: 'Todos los campos son obligatorios',

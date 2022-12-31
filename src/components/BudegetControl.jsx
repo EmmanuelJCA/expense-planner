@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { formatQuantity } from "../helpers"
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css'
 import Swal from "sweetalert2"
@@ -30,25 +31,17 @@ const BudegetControl = ({
         }, 700)
     }, [expenses])
 
-    const formatQuantity = (quantity) => {
-        return quantity.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        })
-    }
-
-    const handleResetApp = () => {
-        return Swal.fire({
+    const handleResetApp = async () => {
+        const result = await Swal.fire({
             title: 'Deseas reiniciar presupuesto y gastos?',
             showCancelButton: true,
             confirmButtonText: 'Confirmar',
-          }).then((result) => {
-            if (result.isConfirmed) {
-                setExpenses([])
-                setBudget(0)
-                setIsValidBudget(false)
-            }
-          })
+        })
+        if (result.isConfirmed) {
+            setExpenses([])
+            setBudget(0)
+            setIsValidBudget(false)
+        }
     }
 
     const handleEditBudget = () => {
