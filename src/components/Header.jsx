@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NewBudget from "./NewBudget";
+import DefineBudget from "./DefineBudget";
 import BudegetControl from "./BudegetControl";
 
 const Header = ({
@@ -8,23 +8,34 @@ const Header = ({
     budget, 
     setBudget, 
     isValidBudget, 
-    setIsValidBudget
+    setIsValidBudget,
+    editBudget,
+    setEditBudget
 }) => {
 
     return (
         <header>
             <h1>Planificador de gastos</h1>
 
-            {isValidBudget ? (
+            { editBudget ? (
+                <DefineBudget 
+                budget={budget}
+                setBudget={setBudget}
+                setIsValidBudget={setIsValidBudget}
+                editBudget={editBudget}
+                setEditBudget={setEditBudget}
+            />
+            ) : isValidBudget ? (
                 <BudegetControl
                     expenses={expenses} 
                     setExpenses={setExpenses}
                     budget={budget}
                     setBudget={setBudget}
                     setIsValidBudget={setIsValidBudget}
+                    setEditBudget={setEditBudget}
                 />
             ) : (
-                <NewBudget 
+                <DefineBudget 
                     budget={budget}
                     setBudget={setBudget}
                     setIsValidBudget={setIsValidBudget}

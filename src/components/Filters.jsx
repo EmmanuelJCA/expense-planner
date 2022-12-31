@@ -11,7 +11,7 @@ const Filters = ({filter, setFilter}) => {
                         value={filter}
                         onChange={e => setFilter(e.target.value)}
                     >
-                        <option value="">-- Todos los gastos --</option>
+                        <option value="">Todos los gastos</option>
                         <option value="ahorros">Ahorro</option>
                         <option value="comida">Comida</option>
                         <option value="hogar">Hogar</option>

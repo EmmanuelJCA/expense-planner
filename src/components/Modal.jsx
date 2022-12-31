@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Message from "./Message"
+import Swal from 'sweetalert2'
 import closeModalBtn from '../assets/close.svg'
 
 const Modal = ({
@@ -11,7 +11,6 @@ const Modal = ({
     setExpenseEdit
 }) => {
 
-    const [message, setMessage] = useState('')
     const [name, setName] = useState('')
     const [quantity, setQuantity] = useState(0)
     const [category, setCategory] = useState('')
@@ -41,12 +40,19 @@ const Modal = ({
         e.preventDefault()
 
         if([ name, quantity, category ].includes('')) {
-            setMessage('Todos los campos son obligatorios')
+            // setMessage('Todos los campos son obligatorios')
 
-            setTimeout(() => {
-                setMessage('')
-            }, 2000)
-            return
+            // setTimeout(() => {
+            //     setMessage('')
+            // }, 2000)
+            // return
+
+            return Swal.fire({
+                icon: 'error',
+                title: 'Todos los campos son obligatorios',
+                showConfirmButton: false,
+                timer: 2000
+              })
         } 
 
         saveSpending({name, quantity, category, id, date})
@@ -68,8 +74,6 @@ const Modal = ({
             >
 
                 <legend>{expenseEdit.name ? 'Editar Gasto' : 'Nuevo Gasto'}</legend>
-
-                {message && <Message type="error">{message}</Message>}
 
                 <div className="field">
                     <label htmlFor="name">Nombre Gasto</label>

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react"
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css'
+import Swal from "sweetalert2"
 
 const BudegetControl = ({
     expenses, 
     setExpenses,
     budget,
     setBudget,
-    setIsValidBudget
+    setIsValidBudget,
+    setEditBudget
 }) => {
 
     const [porcentage, setPorcentage] = useState(0)
@@ -36,13 +38,21 @@ const BudegetControl = ({
     }
 
     const handleResetApp = () => {
-        const result = confirm('Deseas reiniciar presupuesto y gastos?')
+        return Swal.fire({
+            title: 'Deseas reiniciar presupuesto y gastos?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                setExpenses([])
+                setBudget(0)
+                setIsValidBudget(false)
+            }
+          })
+    }
 
-        if(result) {
-            setExpenses([])
-            setBudget(0)
-            setIsValidBudget(false)
-        }
+    const handleEditBudget = () => {
+        setEditBudget(true)
     }
     return (
         <div className="budget-container container shadow two-columns">
@@ -62,10 +72,16 @@ const BudegetControl = ({
 
             <div className="content-budget">
                 <button
-                    className="reset-app"
+                    className="btn reset-app"
                     onClick={handleResetApp}
                 >
                     Resetear App
+                </button>
+                <button
+                    className="btn edit-budget"
+                    onClick={handleEditBudget}
+                >
+                    Editar Presupuesto
                 </button>
                 <p>
                     <span>Presupuesto: </span> {formatQuantity(budget)}

@@ -1,20 +1,28 @@
 import { useState } from "react";
-import Message from "./Message";
+import Swal from "sweetalert2";
 
-const NewBudget = ({budget, setBudget, setIsValidBudget}) => {
-
-    const [message, setMessage] = useState('')
+const DefineBudget = ({
+    budget, 
+    setBudget, 
+    setIsValidBudget, 
+    editBudget,
+    setEditBudget
+}) => {
 
     const hanldeBudget = event => {
         event.preventDefault()
 
         if(!budget || budget < 0){
-            setMessage('Presupuesto no valido')
-
-            return
+            return Swal.fire({
+                icon: 'error',
+                title: 'Presupuesto no valido',
+                showConfirmButton: false,
+                timer: 2000
+              })
         }
-
-        setMessage('')
+        if(editBudget){
+            return setEditBudget(false)
+        }
         setIsValidBudget(true)
     }
 
@@ -22,7 +30,7 @@ const NewBudget = ({budget, setBudget, setIsValidBudget}) => {
         <div className="budget-container container shadow">
             <form onSubmit={hanldeBudget} className="form">
                 <div className="field">
-                    <label htmlFor="">Definir Presupuesto</label>
+                    <label htmlFor="">{editBudget ? 'Editar presupuesto' : 'Definir Presupuesto'}</label>
                     <input 
                         className="new-budget"
                         type="number"
@@ -31,13 +39,11 @@ const NewBudget = ({budget, setBudget, setIsValidBudget}) => {
                         onChange={event => setBudget(Number(event.target.value))} 
                     />
 
-                    <input type="submit" value="Anadir" />
-
-                    {message && <Message type='error'>{message}</Message>}
+                    <input type="submit" value={editBudget ? 'Guardar' : 'Añadir'} />
                 </div>
             </form>
         </div>
     )
 }
 
-export default NewBudget
+export default DefineBudget

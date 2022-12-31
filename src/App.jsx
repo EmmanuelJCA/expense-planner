@@ -18,6 +18,7 @@ function App() {
 
   const [budget, setBudget] = useState( Number(localStorage.getItem('budget') ?? 0) )
   const [isValidBudget, setIsValidBudget] = useState(false)
+  const [editBudget, setEditBudget] = useState(false)
 
   const [modal, setModal] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
@@ -104,6 +105,8 @@ function App() {
         setBudget={setBudget}
         isValidBudget={isValidBudget}
         setIsValidBudget={setIsValidBudget}
+        editBudget={editBudget}
+        setEditBudget={setEditBudget}
       />
 
       {isValidBudget && (
