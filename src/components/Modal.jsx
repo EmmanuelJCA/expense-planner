@@ -3,9 +3,9 @@ import Swal from 'sweetalert2'
 import closeModalBtn from '../assets/close.svg'
 
 const Modal = ({
-    setModal, 
-    animateModal, 
-    setAnimateModal, 
+    setModal,
+    animateModal,
+    setAnimateModal,
     saveSpending,
     expenseEdit,
     setExpenseEdit
@@ -18,14 +18,14 @@ const Modal = ({
     const [id, setId] = useState('')
 
     useEffect(() => {
-        if(Object.keys(expenseEdit).length > 0) {
+        if (Object.keys(expenseEdit).length > 0) {
             setName(expenseEdit.name)
             setQuantity(expenseEdit.quantity)
             setCategory(expenseEdit.category)
             setId(expenseEdit.id)
             setDate(expenseEdit.date)
-          }
-    },[])
+        }
+    }, [])
 
     const hideModal = () => {
         setAnimateModal(false)
@@ -33,57 +33,57 @@ const Modal = ({
 
         setTimeout(() => {
             setModal(false)
-          }, 300)
+        }, 300)
     }
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        if([ name, quantity, category ].includes('')) {
+        if ([name, quantity, category].includes('')) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Todos los campos son obligatorios',
                 showConfirmButton: false,
                 timer: 2000
-              })
-        } 
+            })
+        }
 
-        saveSpending({name, quantity, category, id, date})
+        saveSpending({ name, quantity, category, id, date })
     }
 
     return (
         <div className="modal">
             <div className="close-modal">
-                <img 
-                    src={closeModalBtn} 
-                    alt="Cerrar modal" 
+                <img
+                    src={closeModalBtn}
+                    alt="Cerrar modal"
                     onClick={hideModal}
                 />
             </div>
 
-            <form 
-            onSubmit={handleSubmit}
-            className={`form ${animateModal ? "animate" : "close"}`}
+            <form
+                onSubmit={handleSubmit}
+                className={`form ${animateModal ? "animate" : "close"}`}
             >
 
                 <legend>{expenseEdit.name ? 'Editar Gasto' : 'Nuevo Gasto'}</legend>
 
                 <div className="field">
                     <label htmlFor="name">Nombre Gasto</label>
-                    <input 
+                    <input
                         id="name"
-                        type="text" 
+                        type="text"
                         placeholder="Nombre del gasto aqui"
                         value={name}
-                        onChange={ e => setName(e.target.value)}
+                        onChange={e => setName(e.target.value)}
                     />
                 </div>
 
                 <div className="field">
                     <label htmlFor="quantity">Cantidad</label>
-                    <input 
+                    <input
                         id="quantity"
-                        type="number" 
+                        type="number"
                         placeholder="Monto del gasto aqui"
                         value={quantity}
                         onChange={e => setQuantity(Number(e.target.value))}
@@ -92,7 +92,7 @@ const Modal = ({
 
                 <div className="field">
                     <label htmlFor="category">Categoria</label>
-                    <select 
+                    <select
                         id="category"
                         value={category}
                         onChange={e => setCategory(e.target.value)}
@@ -108,8 +108,8 @@ const Modal = ({
                     </select>
                 </div>
 
-                <input 
-                    type="submit" 
+                <input
+                    type="submit"
                     value={expenseEdit.name ? 'Guardar Cambios' : 'Anadir Gasto'}
                 />
             </form>

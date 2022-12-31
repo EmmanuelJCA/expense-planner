@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import Swal from "sweetalert2"
 
 const BudegetControl = ({
-    expenses, 
+    expenses,
     setExpenses,
     budget,
     setBudget,
@@ -49,9 +49,9 @@ const BudegetControl = ({
     }
     return (
         <div className="budget-container container shadow two-columns">
-            
+
             <div>
-                <CircularProgressbar 
+                <CircularProgressbar
                     styles={buildStyles({
                         pathColor: porcentage > 100 ? '#DC2626' : '#3B82F6',
                         trailColor: '#F5F5F5',
@@ -59,7 +59,7 @@ const BudegetControl = ({
                     })}
                     value={porcentage}
                     text={`${porcentage}% Gastado`}
-                
+
                 />
             </div>
 

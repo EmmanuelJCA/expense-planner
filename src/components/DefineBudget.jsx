@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
 
 const DefineBudget = ({
-    budget, 
-    setBudget, 
-    setIsValidBudget, 
+    budget,
+    setBudget,
+    setIsValidBudget,
     editBudget,
     setEditBudget
 }) => {
@@ -11,15 +11,15 @@ const DefineBudget = ({
     const hanldeBudget = event => {
         event.preventDefault()
 
-        if(!budget || budget < 0){
+        if (!budget || budget < 0) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Presupuesto no valido',
                 showConfirmButton: false,
                 timer: 2000
-              })
+            })
         }
-        if(editBudget){
+        if (editBudget) {
             return setEditBudget(false)
         }
         setIsValidBudget(true)
@@ -30,12 +30,12 @@ const DefineBudget = ({
             <form onSubmit={hanldeBudget} className="form">
                 <div className="field">
                     <label htmlFor="">{editBudget ? 'Editar presupuesto' : 'Definir Presupuesto'}</label>
-                    <input 
+                    <input
                         className="new-budget"
                         type="number"
                         placeholder="Tu presupuesto aqui"
                         value={budget}
-                        onChange={event => setBudget(Number(event.target.value))} 
+                        onChange={event => setBudget(Number(event.target.value))}
                     />
 
                     <input type="submit" value={editBudget ? 'Guardar' : 'Añadir'} />

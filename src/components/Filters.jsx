@@ -1,10 +1,10 @@
-const Filters = ({filter, setFilter}) => {
+const Filters = ({ filter, setFilter }) => {
     return (
         <div className="filters shadow container">
             <form action="">
                 <div className="field">
                     <label htmlFor="filters">Filtrar Gastos</label>
-                    <select 
+                    <select
                         id="filters"
                         value={filter}
                         onChange={e => setFilter(e.target.value)}

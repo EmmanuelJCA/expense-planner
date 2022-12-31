@@ -1,8 +1,8 @@
 import Expense from "./Expense"
 
 const ExpensesList = ({
-    expenses, 
-    setExpenseEdit, 
+    expenses,
+    setExpenseEdit,
     deleteExpense,
     filter,
     filteredExpenses
@@ -13,8 +13,8 @@ const ExpensesList = ({
                 filter ? (
                     <>
                         <h2>{filteredExpenses.length ? 'Gastos' : 'No hay Gastos en esta categoria'}</h2>
-                        {filteredExpenses.map( expense => (
-                            <Expense 
+                        {filteredExpenses.map(expense => (
+                            <Expense
                                 key={expense.id}
                                 expense={expense}
                                 setExpenseEdit={setExpenseEdit}
@@ -25,8 +25,8 @@ const ExpensesList = ({
                 ) : (
                     <>
                         <h2>{expenses.length ? 'Gastos' : 'No hay Gastos'}</h2>
-                        {expenses.map( expense => (
-                            <Expense 
+                        {expenses.map(expense => (
+                            <Expense
                                 key={expense.id}
                                 expense={expense}
                                 setExpenseEdit={setExpenseEdit}

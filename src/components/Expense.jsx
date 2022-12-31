@@ -4,7 +4,7 @@ import {
     SwipeableListItem,
     SwipeAction,
     TrailingActions,
-  } from 'react-swipeable-list'
+} from 'react-swipeable-list'
 import 'react-swipeable-list/dist/styles.css'
 
 import { formatDate } from '../helpers'
@@ -18,16 +18,16 @@ import healthIcon from '../assets/icon_health.svg'
 import suscriptionIcon from '../assets/icon_suscription.svg'
 
 const iconsDictionary = {
-    ahorros : savingIcon,
-    comida : foodIcon,
-    hogar : houseIcon,
-    gastos : expensesIcon,
-    ocio : leisureIcon,
-    salud : healthIcon,
-    suscripciones : suscriptionIcon
+    ahorros: savingIcon,
+    comida: foodIcon,
+    hogar: houseIcon,
+    gastos: expensesIcon,
+    ocio: leisureIcon,
+    salud: healthIcon,
+    suscripciones: suscriptionIcon
 }
 
-const Expense = ({expense, setExpenseEdit, deleteExpense}) => {
+const Expense = ({ expense, setExpenseEdit, deleteExpense }) => {
 
     const { name, quantity, category, date, id } = expense
 
@@ -41,7 +41,7 @@ const Expense = ({expense, setExpenseEdit, deleteExpense}) => {
 
     const trailingActions = () => (
         <TrailingActions>
-            <SwipeAction 
+            <SwipeAction
                 onClick={() => deleteExpense(id)}
                 destructive={true}
             >
@@ -58,10 +58,10 @@ const Expense = ({expense, setExpenseEdit, deleteExpense}) => {
             >
                 <div className='expense shadow'>
                     <div className='expense-content'>
-                        <img 
+                        <img
                             src={iconsDictionary[category]}
                             alt="Icono gasto"
-                        
+
                         />
                         <div className='expense-description'>
                             <p className='category'>{category}</p>
