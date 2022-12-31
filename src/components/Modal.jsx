@@ -48,6 +48,15 @@ const Modal = ({
             })
         }
 
+        if(quantity <= 0) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'El monto debe ser mayor que 0',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+
         saveSpending({ name, quantity, category, id, date })
     }
 
